@@ -1,0 +1,35 @@
+--- threadQuickReply.tpl	2011-05-05 21:02:05.000000000 +0200
++++ threadQuickReplyOriginal.tpl	2011-05-05 20:55:34.000000000 +0200
+@@ -1,4 +1,13 @@
+ <script type="text/javascript" src="{@RELATIVE_WBB_DIR}js/ThreadQuickReply.class.js"></script>
++<script type="text/javascript" src="{@RELATIVE_WBB_DIR}js/QuickReplySmiley.class.js"></script>
++<script type="text/javascript">
++//<![CDATA[
++	// initialize
++	onloadEvents.push(function() {
++		quickreplysmiley = new QuickReplySmiley();
++	});
++//]]>
++</script>
+ <form method="post" action="index.php?form=PostQuickAdd&amp;threadID={@$thread->threadID}">
+ 	<div class="quickReply message content messageMinimized hidden" id="quickReplyContainer-{@$thread->threadID}">
+ 		<div class="messageInner container-1">
+@@ -14,6 +23,18 @@
+ 						<textarea name="text" id="text" rows="10" cols="40"></textarea>
+ 					</div>
+ 				</div>
++				<div id="smileyContainer" class="formElement">
++					<div class="formFieldLabel">
++						<label for="text">{lang}wcf.smiley.smilies{/lang}</label>
++					</div>
++					<div class="formField">
++						<ul class="smileys" id="smileyCategory-0">
++						{foreach from=$smileys item=smiley}
++							<li><img src="{$smiley->getURL()}" alt="" title="{lang}{$smiley->smileyTitle}{/lang}" onmouseover="this.style.cursor='pointer'" onclick="quickreplysmiley.insert('{$smiley->smileyCode|encodeJS}');" style="margin-right: 5px;"/></li>
++						{/foreach}
++						</ul>
++					</div>
++				</div>
+ 				<div class="formSubmit hidden" id="quickReplyButtons-{@$thread->threadID}">
+ 					<input type="submit" name="send" accesskey="s" value="{lang}wcf.global.button.submit{/lang}" />
+ 					<input type="submit" name="preview" accesskey="p" value="{lang}wcf.global.button.editor.jump{/lang}" />
